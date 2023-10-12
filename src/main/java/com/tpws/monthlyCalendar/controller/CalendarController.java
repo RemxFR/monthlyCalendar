@@ -14,15 +14,17 @@ import java.util.*;
 @RequestMapping("calendar")
 public class CalendarController {
 
+    //AJout de la classe Calendar de l'api personnelle CalendarLibJava.
     private Calendar calendar = new Calendar();
 
-
+    //Méthode pour renvoyer le calendrier mensuel sans event, via une requête http POST.
     @PostMapping("monthly-calendar")
     public ResponseEntity<List<CalendarEntity>> getMonthlCalendar(@RequestBody CalendarDto calendarDto) {
         List<CalendarEntity> monthCalendar = this.calendar.getMonthCalendar(calendarDto.getMonth(), calendarDto.getYear());
         return new ResponseEntity<>(monthCalendar, HttpStatus.OK);
     }
 
+    //Méthode pour renvoyer le calendrier mensuel avec event, via une requête http POST.
     @PostMapping("monthly-calendar-with-event")
     public ResponseEntity<List<CalendarMonthEntity>> generateCalendarWithEvent(@RequestBody CalendarMonthEntity calendarMonthEntity) {
         List<CalendarEntity> calendarEntities = this.calendar.generateEventMonthCalendar(calendarMonthEntity.getCalendarDate(), calendarMonthEntity.getEvent());

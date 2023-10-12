@@ -10,6 +10,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebSecurity
 public class Config implements WebMvcConfigurer {
 
+
+    /*
+    Méthode de configuration basique pour permettre la réception et l'acceptation de n'importe quelle requête http.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -21,11 +25,14 @@ public class Config implements WebMvcConfigurer {
         return httpSecurity.build();
     }
 
+    /*
+    Méthode pour définir la validation des CORS et l'acceptation des requête http venant du port localhost:4200.
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         WebMvcConfigurer.super.addCorsMappings(registry);
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("http://localhost:4200/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization");
